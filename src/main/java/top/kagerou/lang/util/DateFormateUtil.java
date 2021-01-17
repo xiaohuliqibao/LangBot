@@ -64,7 +64,7 @@ public class DateFormateUtil {
     }
 
     public static String dateToString(Date d) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年的MMMdd号");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMdd");
         return simpleDateFormat.format(d);
     }
 

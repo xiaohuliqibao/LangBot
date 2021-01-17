@@ -27,3 +27,5 @@ target/**
 .vscode/**
 deviceInfo.json
 *.yml
+src/main/java/top/kagerou/lang/Bot/Robotstart.java
+src/main/java/top/kagerou/lang/Bot/messages/groupMessages/sOneHPicture.java
