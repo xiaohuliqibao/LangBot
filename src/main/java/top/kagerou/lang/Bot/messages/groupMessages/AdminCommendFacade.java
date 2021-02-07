@@ -27,14 +27,19 @@ public class AdminCommendFacade implements MessageFacade {
         // #不理[mirai:at:3452223487614]
         if (qqMemberRepository.findByNumber(sender.getId()).getAuthority() > 3) {
             String commend = message.substring(1, 3);
-            String atmsg = message.substring(4, message.length());
+            String atmsg = message.substring(4, message.length()).trim();
             Long number = Long
                     .parseLong(atmsg.split("mirai:at:")[1].substring(0, atmsg.split("mirai:at:")[1].length() - 1));
             log.info(number.toString());
             switch (commend) {
                 case MUTE:
-                    qqMemberRepository.updateAuthority(MUTE_AUTH, number);
-                    group.sendMessage("不再理你了，笨蛋！");
+                    if (qqMemberRepository.findByNumber(number).getAuthority() == 1) {
+                        group.sendMessage("这个人已经是笨蛋了！");
+                    } else {
+                        qqMemberRepository.updateAuthority(MUTE_AUTH, number);
+                        group.sendMessage("不再理你了，笨蛋！");
+                    }
+
                     break;
                 case UNMUTE:
                     qqMemberRepository.updateAuthority(UNMUTE_AUTH, number);
