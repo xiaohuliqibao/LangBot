@@ -11,7 +11,7 @@ import okhttp3.Response;
 
 public class NetYiYun {
 
-    private static final String NEMUSICAPI = "http://api.heerdev.top/nemusic/random";
+    private static final String NEMUSICAPI = "https://api.lo-li.icu/wyy/";
 
     public static String getWangyiyunComment() {
         String comment = null;
