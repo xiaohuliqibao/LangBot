@@ -1,58 +1,42 @@
 package top.kagerou.lang;
 
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.Operator;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+import com.alibaba.fastjson.JSONObject;
+
+import okhttp3.*;
 
 public class LangTest {
 
-    public static RestHighLevelClient client = null;
+    /**
+     * { "date": "2021-01-17", "countryEn": "China", "tem2": "0", "country": "中国",
+     * "win_meter": "小于12km/h", "air_level": "良", "week": "星期日", "tem1": "10",
+     * "visibility": "25.9km", "city": "眉山", "cityid": "101271501", "pressure":
+     * "976", "air": "51", "air_pm25": "51", "update_time": "2021-01-17 14:36:11",
+     * "wea": "多云", "air_tips": "空气好，可以外出活动，除极少数对污染物特别敏感的人群以外，对公众没有危害！", "wea_img":
+     * "yun", "alarm": { "alarm_type": "", "alarm_content": "", "alarm_level": "" },
+     * "cityEn": "meishan", "win_speed": "1级", "humidity": "31%", "tem": "10",
+     * "win": "西北风" }
+     */
+
+    public static final String WEATHERAPI = "https://tianqiapi.com/api";
 
     public static void main(String[] args) throws Exception {
-        // 配置服务器相关信息
-        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("qibao", "xiaohuli"));
+        OkHttpClient client = new OkHttpClient();
+        // 每一个城市对应一个id，百度城市id编码，默认0为你当前ip所在的城市
+        String cityid = "0";
+        String s = null;
 
-        RestClientBuilder builder = RestClient.builder(new HttpHost("101.33.116.193", 9200))
-                .setHttpClientConfigCallback(
-                        // httpClientBuilder ->
-                        // httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
-                        // 更改为异步请求方式
-                        new RestClientBuilder.HttpClientConfigCallback() {
-                            @Override
-                            public HttpAsyncClientBuilder customizeHttpClient(
-                                    HttpAsyncClientBuilder httpAsyncClientBuilder) {
-                                return httpAsyncClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-                            }
-                        });
+        HttpUrl httpUrl = HttpUrl.parse(WEATHERAPI).newBuilder().addQueryParameter("version", "v6")
+                .addQueryParameter("appid", "99836373").addQueryParameter("appsecret", "NyAv8EAW")
+                .addQueryParameter("cityid", cityid).build();
+        Request request = new Request.Builder().url(httpUrl.toString()).build();
 
-        RestHighLevelClient client = new RestHighLevelClient(builder);
-
-        // 配置查询 有点上头
-        SearchRequest searchRequest = new SearchRequest();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchRequest.indices("setu");
-        // searchRequest.types() types已经被废弃了
-        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("tags", "影之诗").operator(Operator.AND);
-        searchSourceBuilder.query(matchQueryBuilder);
-        searchRequest.source(searchSourceBuilder);
-        // 获取结果 不出意外应该是json
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-        System.out.println(searchResponse.toString());
-        // 关闭client
-        client.close();
+        try {
+            Response response = client.newCall(request).execute();
+            s = response.body().string();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        System.out.println(jsonObject.toString());
     }
 }

@@ -86,7 +86,7 @@ public class GroupEventListener extends SimpleListenerHost {
                     .register_date(DateFormateUtil.simlpeNowDateTime()).money(0).authority(3).identity("mumber")
                     .build();
             qqMemberRepository.save(member);
-            event.getGroup().sendMessage("你想成为魔法少女吧！");
+            event.getGroup().sendMessage("你想成为魔法少女是吧！");
         }
 
     }

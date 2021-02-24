@@ -8,7 +8,7 @@ import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 import top.kagerou.lang.entity.LoliconImage;
 import top.kagerou.lang.repository.LoliconImageRepository;
-import top.kagerou.lang.server.elasticSearch.ElaSetuServer;
+import top.kagerou.lang.service.elasticSearch.ElaSetuServer;
 
 import java.io.File;
 

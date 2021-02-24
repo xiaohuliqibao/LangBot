@@ -22,7 +22,6 @@ public class NetYiYun {
             Response response = client.newCall(request).execute();
             comment = response.body().string();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         // JSONObject jsonObject = JSON.parseObject(comment);

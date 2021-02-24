@@ -1,4 +1,4 @@
-package top.kagerou.lang.server.elasticSearch;
+package top.kagerou.lang.service.elasticSearch;
 
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
