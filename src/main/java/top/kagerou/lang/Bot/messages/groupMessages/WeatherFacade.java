@@ -5,8 +5,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.LightApp;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageUtils;
@@ -33,7 +33,7 @@ public class WeatherFacade implements MessageFacade {
     CityRespository cityRespository;
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
+    public void execute(Member sender, Group group, String message) {
         if (message.contains("查询")) {
             String cityname = message.substring(2, message.length() - 2);
 
@@ -63,7 +63,6 @@ public class WeatherFacade implements MessageFacade {
 
     @Override
     public EnumKeyWord get() {
-        // TODO Auto-generated method stub
         return EnumKeyWord.GROUP_WEATHERS;
     }
 

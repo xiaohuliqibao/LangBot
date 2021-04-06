@@ -1,7 +1,7 @@
 package top.kagerou.lang.Bot.messages.groupMessages;
 
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.utils.ExternalResource;
 import top.kagerou.lang.Bot.enums.EnumKeyWord;
@@ -34,7 +34,7 @@ public class OneHPictureFacade implements MessageFacade {
     }
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
+    public void execute(Member sender, Group group, String message) {
         if (message.equals("来张涩图")) {
             // String r18 = "0";
             // 获取imageBean的基本信息

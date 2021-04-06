@@ -14,7 +14,7 @@ public class Robotstart {
     public static Bot bot;
 
     static {
-        bot = BotFactory.INSTANCE.newBot(**, "**", new BotConfiguration() {
+        bot = BotFactory.INSTANCE.newBot(2213487614L, "Xiaohuli7bao", new BotConfiguration() {
             {
                 fileBasedDeviceInfo("deviceInfo.json");
                 setProtocol(MiraiProtocol.ANDROID_PAD);

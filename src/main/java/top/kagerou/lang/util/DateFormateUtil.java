@@ -18,7 +18,6 @@ public class DateFormateUtil {
         try {
             d = simpleDateFormat.parse(date);
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println(e.getMessage());
         }
 
@@ -37,7 +36,6 @@ public class DateFormateUtil {
         try {
             d = simpleDateFormat.parse(date);
         } catch (Exception e) {
-            // TODO: handle exception
             System.out.println(e.getMessage());
         }
 
@@ -57,7 +55,6 @@ public class DateFormateUtil {
             String format = simpleDateFormat.format(date);
             time = simpleDateFormat.parse(format);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return time;

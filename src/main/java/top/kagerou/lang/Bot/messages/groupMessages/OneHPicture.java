@@ -21,7 +21,7 @@ import top.kagerou.lang.entity.LoliconImage;
 public class OneHPicture {
 
     private static final String LOLICONAPI_URL = "https://api.lolicon.app/setu/";
-    private static final String LOLICONAPI_KEY = "**";
+    private static final String LOLICONAPI_KEY = "371911445f1a85cb36a461";
     private static final String IMAGE_PATH = "/home/qibao/file/miraibot/images/";
     // private static final String IMAGE_PATH = "D://";
     private static final String IMAGE_R18 = "0";

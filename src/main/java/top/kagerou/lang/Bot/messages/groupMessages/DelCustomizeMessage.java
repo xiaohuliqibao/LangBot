@@ -3,8 +3,8 @@ package top.kagerou.lang.Bot.messages.groupMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 import top.kagerou.lang.repository.CustomizeMessageRepository;
@@ -16,7 +16,7 @@ public class DelCustomizeMessage implements MessageFacade {
     CustomizeMessageRepository customizeMessageRepository;
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
+    public void execute(Member sender, Group group, String message) {
         if (message.substring(0, 4).equals("不再回复")) {
             String qkey = message.substring(4, message.length());
             String sendMsg = null;

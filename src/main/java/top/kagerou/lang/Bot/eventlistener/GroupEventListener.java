@@ -44,10 +44,16 @@ public class GroupEventListener extends SimpleListenerHost {
         String groupMsg = "";
 
         MessageChain originalMessage = event.getSource().getOriginalMessage();
-        for (int i = 1; i < originalMessage.getSize(); i++) {
+        // log.info(originalMessage.toString());
+        // log.info(originalMessage.contentToString());
+        // log.info(event.getMessage().contentToString());
+        // log.info(event.getMessage().toString());
+        // log.info(event.getSource().contentToString());
+        // log.info(event.getSource().toString());
+        for (int i = 0; i < originalMessage.size(); i++) {
             groupMsg = groupMsg + originalMessage.get(i);
         }
-        log.info(groupMsg);
+        log.info("原始消息：" + groupMsg);
         Member sender = event.getSender();
         Long sendNumber = sender.getId();
         GroupMessageEntity groupMessage = GroupMessageEntity.builder().group_number(event.getGroup().getId())

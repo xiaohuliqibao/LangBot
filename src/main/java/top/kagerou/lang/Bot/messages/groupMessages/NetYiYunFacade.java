@@ -2,8 +2,8 @@ package top.kagerou.lang.Bot.messages.groupMessages;
 
 import org.springframework.stereotype.Component;
 
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 
@@ -11,8 +11,7 @@ import top.kagerou.lang.Bot.messages.MessageFacade;
 public class NetYiYunFacade implements MessageFacade {
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
-        // TODO Auto-generated method stub
+    public void execute(Member sender, Group group, String message) {
         if (message.equals("网抑云")) {
             String sendMsg = NetYiYun.getWangyiyunComment();
             group.sendMessage(sendMsg);
@@ -21,7 +20,6 @@ public class NetYiYunFacade implements MessageFacade {
 
     @Override
     public EnumKeyWord get() {
-        // TODO Auto-generated method stub
         return EnumKeyWord.GROUP_NETYIYUN;
     }
 

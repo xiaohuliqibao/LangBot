@@ -5,8 +5,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 import top.kagerou.lang.repository.QQMemberRepository;
@@ -23,7 +23,7 @@ public class AdminCommendFacade implements MessageFacade {
     QQMemberRepository qqMemberRepository;
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
+    public void execute(Member sender, Group group, String message) {
         // #不理[mirai:at:3452223487614]
         if (qqMemberRepository.findByNumber(sender.getId()).getAuthority() > 3) {
             String commend = message.substring(1, 3);
@@ -32,21 +32,21 @@ public class AdminCommendFacade implements MessageFacade {
                     .parseLong(atmsg.split("mirai:at:")[1].substring(0, atmsg.split("mirai:at:")[1].length() - 1));
             log.info(number.toString());
             switch (commend) {
-                case MUTE:
-                    if (qqMemberRepository.findByNumber(number).getAuthority() == 1) {
-                        group.sendMessage("这个人已经是笨蛋了！");
-                    } else {
-                        qqMemberRepository.updateAuthority(MUTE_AUTH, number);
-                        group.sendMessage("不再理你了，笨蛋！");
-                    }
+            case MUTE:
+                if (qqMemberRepository.findByNumber(number).getAuthority() == 1) {
+                    group.sendMessage("这个人已经是笨蛋了！");
+                } else {
+                    qqMemberRepository.updateAuthority(MUTE_AUTH, number);
+                    group.sendMessage("不再理你了，笨蛋！");
+                }
 
-                    break;
-                case UNMUTE:
-                    qqMemberRepository.updateAuthority(UNMUTE_AUTH, number);
-                    group.sendMessage("好吧，这次就原谅你了。");
-                    break;
-                default:
-                    break;
+                break;
+            case UNMUTE:
+                qqMemberRepository.updateAuthority(UNMUTE_AUTH, number);
+                group.sendMessage("好吧，这次就原谅你了。");
+                break;
+            default:
+                break;
             }
         } else {
             group.sendMessage("坏蛋你想干什么！");
@@ -56,7 +56,6 @@ public class AdminCommendFacade implements MessageFacade {
 
     @Override
     public EnumKeyWord get() {
-        // TODO Auto-generated method stub
         return EnumKeyWord.GROUP_ADMIN;
     }
 }

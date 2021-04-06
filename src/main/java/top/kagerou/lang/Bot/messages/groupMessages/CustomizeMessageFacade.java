@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.entity.CustomizeMessage;
@@ -18,8 +18,7 @@ public class CustomizeMessageFacade implements MessageFacade {
     CustomizeMessageRepository customizeMessageRepository;
 
     @Override
-    public void execute(Contact sender, Group group, String message) {
-        // TODO Auto-generated method stub
+    public void execute(Member sender, Group group, String message) {
         if (message.substring(0, 3).equals("有人发") && message.contains("你回")) {
             String[] split = message.substring(3, message.length()).split("你回");
             String qKey = split[0];
@@ -40,7 +39,6 @@ public class CustomizeMessageFacade implements MessageFacade {
 
     @Override
     public EnumKeyWord get() {
-        // TODO Auto-generated method stub
         return EnumKeyWord.GROUP_CUSTOMISEMESSAGE;
     }
 
