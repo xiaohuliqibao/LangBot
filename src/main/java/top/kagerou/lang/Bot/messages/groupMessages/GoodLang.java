@@ -1,28 +1,34 @@
 package top.kagerou.lang.Bot.messages.groupMessages;
 
-import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
-import top.kagerou.lang.Bot.enums.EnumKeyWord;
-import top.kagerou.lang.Bot.messages.MessageFacade;
+import okhttp3.OkHttpClient;
 
-import org.springframework.stereotype.Component;
+import com.alibaba.fastjson.JSONObject;
 
-@Component
-public class GoodLang implements MessageFacade {
+import kotlinx.serialization.json.JsonObject;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.Response;
 
-    @Override
-    public void execute(Member sender, Group group, String message) {
+public class GoodLang {
+    private static final String HITOKOTOAPI = "https://v1.hitokoto.cn";
 
-        if (message.equals("早安狼宝")) {
+    public static String getHitokoto(String c) {
+        OkHttpClient client = new OkHttpClient();
+        String s = null;
+        HttpUrl httpUrl = HttpUrl.parse(HITOKOTOAPI).newBuilder().addQueryParameter("c", c)
+                .addQueryParameter("encode", "json").addQueryParameter("charset", "utf-8").build();
+        Request request = new Request.Builder().url(httpUrl.toString()).build();
 
-            String sendMsg = "早安" + sender.getNick();
-            group.sendMessage(sendMsg);
+        try {
+            Response response = client.newCall(request).execute();
+            String responseStr = response.body().string();
+            JSONObject jsonObject = JSONObject.parseObject(responseStr);
+            s = jsonObject.getString("hitokoto");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public EnumKeyWord get() {
-        return EnumKeyWord.GROUP_GOOD;
+        return s;
     }
 
 }

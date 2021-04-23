@@ -2,6 +2,7 @@ package top.kagerou.lang.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateFormateUtil {
@@ -81,5 +82,11 @@ public class DateFormateUtil {
         }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(new Date(Long.valueOf(seconds + "000")));
+    }
+
+    public static int getNow24Hour() {
+        Calendar cal = Calendar.getInstance();
+        // Calendar.HOUR_OF_DAY
+        return cal.get(Calendar.HOUR_OF_DAY);
     }
 }
