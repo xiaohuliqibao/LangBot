@@ -24,10 +24,10 @@ public class AdminCommendFacade implements MessageFacade {
 
     @Override
     public void execute(Member sender, Group group, String message) {
-        // #不理[mirai:at:3452223487614]
+        // ##不理[mirai:at:3452223487614]
         if (qqMemberRepository.findByNumber(sender.getId()).getAuthority() > 3) {
-            String commend = message.substring(1, 3);
-            String atmsg = message.substring(4, message.length()).trim();
+            String commend = message.substring(2, 4);
+            String atmsg = message.substring(5, message.length()).trim();
             Long number = Long
                     .parseLong(atmsg.split("mirai:at:")[1].substring(0, atmsg.split("mirai:at:")[1].length() - 1));
             log.info(number.toString());

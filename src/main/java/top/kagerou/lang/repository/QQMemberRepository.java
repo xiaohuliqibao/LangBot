@@ -21,6 +21,16 @@ public interface QQMemberRepository extends JpaRepository<QQMember, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE qq_member SET morning_clock_in = 'Y' WHERE number = ?1", nativeQuery = true)
+    int updateMorningClockIn(Long number);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE qq_member SET night_clock_in = 'Y' WHERE number = ?1", nativeQuery = true)
+    int updateNightClockIn(Long number);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE qq_member SET authority = ?1 WHERE number = ?2", nativeQuery = true)
     // private Integer authority;
     int updateAuthority(Integer authority, Long number);

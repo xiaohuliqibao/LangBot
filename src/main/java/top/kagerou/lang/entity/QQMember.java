@@ -39,5 +39,9 @@ public class QQMember {
     private Date register_date;
     @Column(name = "money", nullable = true, length = 12)
     private Integer money;
+    @Column(name = "morning_clock_in", length = 2)
+    private String morning_clock_in;
+    @Column(name = "night_clock_in", length = 2)
+    private String night_clock_in;
 
 }

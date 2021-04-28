@@ -84,9 +84,16 @@ public class DateFormateUtil {
         return sdf.format(new Date(Long.valueOf(seconds + "000")));
     }
 
+    /**
+     * 获取当前的小时数
+     * 
+     * 
+     * @return Int
+     */
     public static int getNow24Hour() {
         Calendar cal = Calendar.getInstance();
         // Calendar.HOUR_OF_DAY
         return cal.get(Calendar.HOUR_OF_DAY);
     }
+
 }
