@@ -8,6 +8,7 @@ import top.kagerou.lang.Bot.enums.EnumKeyWord;
 import top.kagerou.lang.Bot.messages.MessageFacade;
 import top.kagerou.lang.entity.LoliconImage;
 import top.kagerou.lang.repository.LoliconImageRepository;
+import top.kagerou.lang.service.QQMemberService;
 import top.kagerou.lang.service.elasticSearch.ElaSetuServer;
 
 import java.io.File;
@@ -25,6 +26,9 @@ public class OneHPictureFacade implements MessageFacade {
     @Autowired
     LoliconImageRepository loliconImageRepository;
 
+    @Autowired
+    QQMemberService qqMemberService;
+
     private ElaSetuServer elaSetuServer;
 
     @Autowired
@@ -38,18 +42,23 @@ public class OneHPictureFacade implements MessageFacade {
         if (message.equals("来张涩图")) {
             // String r18 = "0";
             // 获取imageBean的基本信息
-            LoliconImage loliconImage = OneHPicture.getLoliconImage();
-            loliconImageRepository.save(loliconImage);
-            String imageTitle = loliconImage.getTitle();
-            String imageUrl = loliconImage.getUrl();
-            File imageFile = OneHPicture.saveImageFile(imageUrl, imageTitle);
-            // ExternalImage externalImage = ExternalImageJvmKt.toExternalImage(imageFile,
-            // false);
-            ExternalResource imageResource = ExternalResource.create(imageFile);
-            Image image = group.uploadImage(imageResource);
-            String imageId = image.getImageId();
-            log.info(imageId);
-            group.sendMessage(image);
+            if (qqMemberService.spendpoints(2, sender.getId())) {
+                LoliconImage loliconImage = OneHPicture.getLoliconImage();
+                loliconImageRepository.save(loliconImage);
+                String imageTitle = loliconImage.getTitle();
+                String imageUrl = loliconImage.getUrl();
+                File imageFile = OneHPicture.saveImageFile(imageUrl, imageTitle);
+                // ExternalImage externalImage = ExternalImageJvmKt.toExternalImage(imageFile,
+                // false);
+                ExternalResource imageResource = ExternalResource.create(imageFile);
+                Image image = group.uploadImage(imageResource);
+                String imageId = image.getImageId();
+                log.info(imageId);
+                group.sendMessage(image);
+            } else {
+                group.sendMessage("积分不够啦，今天的涩图就到此为止吧！");
+            }
+
         } else if (message.contains("来张") && message.contains("色图")) {
             String tags = message.substring(2, message.length() - 2);
             log.info(tags);
